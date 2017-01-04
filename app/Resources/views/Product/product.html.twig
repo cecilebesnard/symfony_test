@@ -1,11 +1,16 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}Product{% endblock %}
+
 {%  block stylesheet %}
 {{ parent() }}
  <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
+{% block ariane %}
+    <li class="active">Produits</li>
 
+{% endblock %}
 {% block content %}
 
     <!-- Main content -->
@@ -39,9 +44,9 @@
                                 <td>{{ product.description }} </td>
                                 <td>{{ product.date_created|date("d/m/Y") }} </td>
                                 <td><div class="btn-group">
-                                        <button type="button" class="btn btn-info">Voir</button>
-                                        <button type="button" class="btn btn-info">Editer</button>
-                                        <button type="button" class="btn btn-info">Supprimer</button>
+                                        <a href="{{ path("show_product",{id:product.id}) }}"><button type="button" class="btn btn-info">Voir</button></a>
+                                        <a href="{{ path("show_product",{id:product.id}) }}"><button type="button" class="btn btn bg-maroon">Editer</button></a>
+                                        <a href="{{ path("show_product",{id:product.id}) }}"><button type="button" class="btn btn-primary">Supprimer</button></a>
                                     </div></td>
                             </tr>
                             {% endfor %}
