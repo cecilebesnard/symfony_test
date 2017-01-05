@@ -23,7 +23,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contactold", name="contactold")
      */
     public function contactAction(Request $request)
     {

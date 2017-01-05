@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<h1>Feedback</h1>
+<h2>Ecrit par : </h2>
+<p>{{ datafeedback.firstname }} {{ datafeedback.lastname }}</p>
+
+<p><em>{{ datafeedback.bugstatut }}</em> - <strong>{{ datafeedback.datebug|date }}</strong></p>
+<p>Page : {{ datafeedback.page }}</p>
+
+<p>Message : {{ datafeedback.content }}</p>
+
+<p>Pour repondre : {{ datafeedback.email }}</p>
+
+
+</body>
+</html>

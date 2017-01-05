@@ -13,6 +13,24 @@
 {% endblock %}
 {% block content %}
 
+{% set total = 0 %}
+
+{% set prix = [] %}
+            {% for product in products %}
+
+                {% set total = total + product.prix %}
+
+                {% set prix = prix|merge([product.prix]) %}
+
+
+            {% endfor %}
+
+
+
+{% set total = total / products|length %}
+
+{% set lemoincher = min(prix) %}
+
     <!-- Main content -->
     <section class="content">
 
@@ -40,7 +58,13 @@
                             {% for product in products %}
                             <tr>
                                 <td>{{ product.id }} </td>
-                                <td>{{ product.title }} </td>
+
+               {% if product.prix == lemoincher %}
+
+                                <td><u>{{ product.title }}</u> </td>
+                     {% else %}
+                                <td>{{ product.title }}</td>
+               {% endif %}
                                 <td>{{ product.description }} </td>
                                 <td>{{ product.date_created|date("d/m/Y") }} </td>
                                 <td><div class="btn-group">
@@ -56,6 +80,30 @@
                     <!-- /.box-body -->
                 </div>
 
+
+
+
+            <p>La moyenne des prix est : {{ total }}</p>
+
+
+            <p>le prix le moins cher est : {{ lemoincher  }}</p>
+
+
+ <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Area Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="areaChart" style="height:250px"></canvas>
+              </div>
+            </div>
 
 {% endblock %}
 

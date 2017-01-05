@@ -1,0 +1,142 @@
+{%  extends "layout.html.twig" %}
+
+{% block title %}feedback{% endblock %}
+
+{% block ariane %}
+    <li class="active">Feedback</li>
+
+{% endblock %}
+
+{% block content %}
+
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(formFeedback) }}
+
+    <div class="box box-success">
+    <div class="box-body">
+    <div>
+
+        {{ form_errors(formFeedback.page) }}
+
+
+        {{ form_label(formFeedback.page , "Page" )  }}
+
+       
+        {{ form_widget(formFeedback.page , {
+            attr: {
+                class: "form-control"
+            }
+        }) }}
+    </div>
+
+    <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.bugstatut) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.bugstatut , "Statut de l'anomalie" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.bugstatut , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+    </div>
+    <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.firstname) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.firstname , "Prénom" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.firstname , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+    </div>
+
+    <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.lastname) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.lastname , "nom" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.lastname , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+    </div>
+
+    <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.email) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.email , "email" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.email , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+    </div>
+
+    <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.datebug) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.datebug , "Date de l'anomalie" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.datebug ) }}
+    </div>
+
+    <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.content) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.content , "Votre Message" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.content , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+    </div>
+
+        <div>
+            {# affiche les erreurs du champ firstname #}
+            {{ form_errors(formFeedback.testdate) }}
+
+            {# affiche la balise label du champ firtsname #}
+            {{ form_label(formFeedback.testdate , "Page" )  }}
+
+            {# affiche la balise input de type text du champ firtsname #}
+            {{ form_widget(formFeedback.testdate , {
+                attr: {
+                    class: "datepicker form-control"
+                }
+
+            }) }}
+        </div>
+        <button>Envoyer</button>
+
+        {{ form_end(formFeedback) }}
+    </div>
+    </div>
+{% endblock %}

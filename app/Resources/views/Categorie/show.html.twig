@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Show-Categorie{% endblock %}
+
+{% block ariane %}
+    <li class="active"><a href="{{ path('categorie') }}">Categories</a></li>
+    <li class="active">{{ categorie.title }}</li>
+{% endblock %}
+{% block content %}
+
+
+            <h2> {{  categorie.title }} </h2>
+            <p> {{ categorie.description }}</p>
+            <strong> {{ categorie.date_created|date("d/m/Y") }} </strong>
+
+
+
+
+{% endblock %}

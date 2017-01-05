@@ -46,12 +46,12 @@
                         <td>{{ categorie.id }} </td>
                         {%  endif %}
                         <td>{{ categorie.title }} </td>
-                        <td>{{ categorie.description|raw|nl2br }} ({{ categorie.description|length }})</td>
+                        <td>{{ categorie.description|slice(0,50)|raw|nl2br }} ({{ categorie.description|length }})</td>
                         <td>{{ categorie.date_created|date("d/m/Y") }} </td>
                         <td><div class="btn-group">
-                                <a href="#"><button type="button" class="btn btn-info">Voir</button></a>
-                                <a href="#"><button type="button" class="btn btn bg-maroon">Editer</button></a>
-                                <a href="#"><button type="button" class="btn btn-primary">Supprimer</button></a>
+                                <a href="{{ path("show_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn-info">Voir</button></a>
+                                <a href="{{ path("show_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn bg-maroon">Editer</button></a>
+                                <a href="{{ path("show_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn-primary">Supprimer</button></a>
                             </div></td>
                     </tr>
                 {% endfor %}
@@ -60,6 +60,8 @@
         </div>
         <!-- /.box-body -->
     </div>
+
+    il y a {{ categories|length }} categorie(s).
 {%  endblock %}
 
  {% block javascript %}
