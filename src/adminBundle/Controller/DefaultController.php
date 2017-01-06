@@ -2,6 +2,7 @@
 
 namespace adminBundle\Controller;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -11,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 class DefaultController extends Controller
@@ -31,10 +34,46 @@ class DefaultController extends Controller
 
 
         $formContact = $this->createFormBuilder()
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('content', TextareaType::class)
+            ->add('firstname', TextType::class,[
+                'constraints' =>
+                [
+                    new Assert\NotBlank(['message' => 'Veuillez rentrer un prénom']),
+                    new Assert\Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre prénom doit faire 2 caractères minumum'
+                    ])
+                ]
+            ])
+            ->add('lastname', TextType::class,[
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un nom'])
+                    ]
+                    ])
+
+
+            ->add('email', EmailType::class, [
+                'constraints' =>
+                    [
+
+                        new Assert\NotBlank(['message' => 'Veuiller rentrer un email']),
+                        new Assert\Email([
+                            'message' => 'Votre email "{{ value }}" est faux'
+                        ])
+                    ]
+            ])
+            ->add('content', TextareaType::class,[
+                'constraints' =>
+                [
+                    new Assert\NotBlank(['message' => 'Veuillez rentrer un message']),
+                    new Assert\Length([
+                        'max' => 150,
+                        'maxMessage' => '150 caractères maximum'
+                    ])
+                ]
+
+            ])
+            ->add('captcha', CaptchaType::class)
             ->getForm();
 
         $formContact->handleRequest($request);
@@ -89,23 +128,70 @@ class DefaultController extends Controller
      */
     public function feedbackAction(Request $request)
     {
+        $choicesBug = ["Technique" => "Technique" , "Design" => "Design" ,  "Marketing" => "Marketing"  , "Autre" => "Autre"];
         $formFeedback = $this->createFormBuilder()
-            ->add('page', UrlType::class)
-            ->add('bugstatut', ChoiceType::class ,array(
-                'choices' => array("Technique" => "Technique" , "Design" => "Design" ,  "Marketing" => "Marketing"  , "Autre" => "Autre")))
-            ->add('firstname' , TextType::class)
-            ->add('lastname' , TextType::class)
-            ->add('email', EmailType::class)
-            ->add('datebug' , DateType::class , [
-                    "data" => new \DateTime(),
-                    'widget' => 'choice' ,
-                    'format' => 'd/MMM/y' ,
-                    'years' => range(date('Y')-10, date('Y')+10)
-
+            ->add('page', UrlType::class,[
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez renseigner une URL']),
+                        new Assert\Url(['message' => 'l\'URL {{ value }} n\'est pas valide'  ])
+                    ]
             ])
-            ->add('content', TextareaType::class)
-            ->add('testdate' , DateType::class, [
-                'widget' => 'single_text'])
+            ->add('bugstatut', ChoiceType::class ,
+                [
+                'choices' => $choicesBug],[
+                'constraints' =>
+            [
+                new Assert\NotBlank(['message' => 'Veuillez renseigner un type']),
+                new Assert\Choice([
+                    'message' => 'Choix invalide',
+                    'choices' => $choicesBug
+                ])
+            ]
+            ])
+            ->add('firstname' , TextType::class,[
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez renseigner un prénom']),
+                    ]
+            ])
+            ->add('lastname' , TextType::class,[
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez renseigner un nom']),
+                    ]
+            ])
+            ->add('email', EmailType::class,[
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez renseigner un Email']),
+                        new Assert\Email(['message' => 'l\'Email {{ value }} n\'est pas valide'])
+                    ]
+            ])
+
+            ->add('content', TextareaType::class,[
+                'constraints' =>
+                [
+                    new Assert\NotBlank(['message' => 'Veuillez renseigner un message']),
+                    new Assert\Length([
+                        'min' => 10,
+                        'max' => 150,
+                        'minMessage' => '10 caractères minumum',
+                        'maxMessage' => '150 caractères maximum'
+                    ])
+                ]
+            ])
+            ->add('datebug' , DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy'
+                ],[
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez renseigner une date']),
+                        new Assert\Date(['message' => 'Veuillez renseigner une date valide'])
+                    ]
+            ])
+
             ->getForm();
 
         $formFeedback->handleRequest($request);

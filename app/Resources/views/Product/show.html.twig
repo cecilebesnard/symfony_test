@@ -10,9 +10,10 @@
 
 
             <h2> {{  product.title }} </h2>
-            <p> {{ product.description }}</p>
-            <strong> {{ product.date_created|date("d/m/Y") }} </strong>
-            <p> {{ product.prix }} €</p>
+            <p>Description :  {{ product.description }}</p>
+            {#<strong> {{ product.date_created|date("d/m/Y") }} </strong>#}
+            <p>Prix : {{ product.price }} €</p>
+            <p>{{ product.quantity }} en stock</p>
 
 
 

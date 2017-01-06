@@ -18,9 +18,9 @@
 {% set prix = [] %}
             {% for product in products %}
 
-                {% set total = total + product.prix %}
+                {% set total = total + product.price %}
 
-                {% set prix = prix|merge([product.prix]) %}
+                {% set prix = prix|merge([product.price]) %}
 
 
             {% endfor %}
@@ -40,7 +40,7 @@
             <div class="box-header">
 
                 <h3 class="box-title">Tous les produits</h3>
-                <button type="button" class="btn btn-block btn-info btn-sm">Créer</button>
+                <a href="{{ path('product_create') }}" ><button type="button" class="btn btn-info btn-sm">Créer</button></a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -50,7 +50,7 @@
                                 <th>Id</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Date</th>
+                                <th>Prix</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -59,14 +59,16 @@
                             <tr>
                                 <td>{{ product.id }} </td>
 
-               {% if product.prix == lemoincher %}
+               {% if product.price == lemoincher %}
 
                                 <td><u>{{ product.title }}</u> </td>
                      {% else %}
                                 <td>{{ product.title }}</td>
                {% endif %}
                                 <td>{{ product.description }} </td>
-                                <td>{{ product.date_created|date("d/m/Y") }} </td>
+                                <td>{{ product.price }} </td>
+                        {#affichage avec variable $product avant DBB
+                                <td>{{ product.date_created|date("d/m/Y") }} </td>#}
                                 <td><div class="btn-group">
                                         <a href="{{ path("show_product",{id:product.id}) }}"><button type="button" class="btn btn-info">Voir</button></a>
                                         <a href="{{ path("show_product",{id:product.id}) }}"><button type="button" class="btn btn bg-maroon">Editer</button></a>

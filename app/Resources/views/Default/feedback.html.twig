@@ -10,12 +10,12 @@
 {% block content %}
 
     {% for flash_message in app.session.flashBag.get('success') %}
-        <div class="flash-notice">
+        <div class="alert alert-success">
             {{ flash_message }}
         </div>
     {% endfor %}
 
-    {{ form_start(formFeedback) }}
+    {{ form_start(formFeedback, {attr: {novalidate:"novalidate"}}) }}
 
     <div class="box box-success">
     <div class="box-body">
@@ -26,7 +26,7 @@
 
         {{ form_label(formFeedback.page , "Page" )  }}
 
-       
+
         {{ form_widget(formFeedback.page , {
             attr: {
                 class: "form-control"
@@ -93,16 +93,7 @@
             }) }}
     </div>
 
-    <div>
-            {# affiche les erreurs du champ firstname #}
-            {{ form_errors(formFeedback.datebug) }}
 
-            {# affiche la balise label du champ firtsname #}
-            {{ form_label(formFeedback.datebug , "Date de l'anomalie" )  }}
-
-            {# affiche la balise input de type text du champ firtsname #}
-            {{ form_widget(formFeedback.datebug ) }}
-    </div>
 
     <div>
             {# affiche les erreurs du champ firstname #}
@@ -121,20 +112,24 @@
 
         <div>
             {# affiche les erreurs du champ firstname #}
-            {{ form_errors(formFeedback.testdate) }}
+            {{ form_errors(formFeedback.datebug) }}
 
             {# affiche la balise label du champ firtsname #}
-            {{ form_label(formFeedback.testdate , "Page" )  }}
+            {{ form_label(formFeedback.datebug , "Date" )  }}
 
             {# affiche la balise input de type text du champ firtsname #}
-            {{ form_widget(formFeedback.testdate , {
+            {{ form_widget(formFeedback.datebug , {
                 attr: {
                     class: "datepicker form-control"
                 }
 
             }) }}
         </div>
-        <button>Envoyer</button>
+
+
+        <div class="box-footer">
+            <button class="btn btn-info btn-sm">Envoyer</button>
+        </div>
 
         {{ form_end(formFeedback) }}
     </div>
