@@ -8,10 +8,15 @@
 {% endblock %}
 {% block content %}
 
+    {% for flash_message in app.session.flashBag.get('success2') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
 
             <h2> {{  categorie.title }} </h2>
             <p> {{ categorie.description }}</p>
-            <strong> {{ categorie.date_created|date("d/m/Y") }} </strong>
+            {#<strong> {{ categorie.date_created|date("d/m/Y") }} </strong>#}
 
 
 

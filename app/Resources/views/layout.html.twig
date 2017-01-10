@@ -291,7 +291,8 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active treeview">
+                <li class="
+                {% if app.request.get("_route") == "admin" %} active {% endif %} treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         <span class="pull-right-container">
@@ -299,11 +300,12 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ path('admin') }}" ><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                        <li><a href="{{ path('admin') }}" ><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                         <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
+
+                <li class="{% if app.request.get("_route") == "product" %} active {% endif %}treeview">
                     <a href="{{ path('product') }}" >
                         <i class="fa fa-files-o"></i>
                         <span>Produits</span>
@@ -313,7 +315,7 @@
 
                 </li>
 
-                <li class="treeview">
+                <li class="{% if app.request.get("_route") == "categorie" %} active {% endif %}treeview">
                     <a href="{{ path('categorie') }}" >
                         <i class="fa fa-tasks"></i>
                         <span>Categories</span>
@@ -323,7 +325,7 @@
 
                 </li>
 
-                <li class="treeview">
+                <li class="{% if app.request.get("_route") == "contact" %} active {% endif %}treeview">
                     <a href="{{ path('contact') }}" >
                         <i class="fa fa-envelope"></i>
                         <span>Contact</span>
@@ -333,7 +335,7 @@
 
                 </li>
 
-                <li class="treeview">
+                <li class="{% if app.request.get("_route") == "feedback" %} active {% endif %}treeview">
                     <a href="{{ path('feedback') }}" >
                         <i class="fa fa-commenting-o"></i>
                         <span>Feedback</span>
@@ -342,6 +344,8 @@
                     </a>
 
                 </li>
+
+
 
             </ul>
         </section>

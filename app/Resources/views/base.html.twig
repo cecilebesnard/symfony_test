@@ -75,6 +75,39 @@
                     });
                 });
             </script>
+
+            <script>
+                $(document).ready(function() {
+
+                    $('.btn-group').on('click', '.btn-primary', function (event) {
+                        //console.log($(this))
+                        event.preventDefault();
+                        if (confirm('Etes-vous sur ?')) {
+                            var elementA = $(this);
+                            var elementParentTable = elementA.closest('.table');
+                            var linkUrl = elementA.parent().attr('href');
+                            // Requête Ajax
+                            // http://api.jquery.com/jquery.ajax/
+                            // The jqXHR Object => promise
+                            $.ajax({
+                                url: linkUrl,
+                                method: "GET",
+                            }).done(function (data) {
+                                elementA.closest('tr').fadeOut(700, function(){
+                                    $(this).remove();
+                            // Suppression des éventuels messages existants
+                                    $('.alert-success').remove();
+                            // Ajout du message
+                                    var message = $('<p class="alert alert-danger">').append(data.message);
+                                    elementParentTable.before(message);
+                                    message.delay(3000).fadeOut()
+                                })
+                            });
+                        }
+                    })
+                })
+
+            </script>
         {% endblock %}
     </body>
 </html>

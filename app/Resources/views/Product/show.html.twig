@@ -6,7 +6,16 @@
     <li class="active"><a href="{{ path('product') }}">Produits</a></li>
     <li class="active">{{ product.title }}</li>
 {% endblock %}
+
+
+
 {% block content %}
+    {% for flash_message in app.session.flashBag.get('success2') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
 
 
             <h2> {{  product.title }} </h2>
@@ -14,6 +23,8 @@
             {#<strong> {{ product.date_created|date("d/m/Y") }} </strong>#}
             <p>Prix : {{ product.price }} €</p>
             <p>{{ product.quantity }} en stock</p>
+
+    <a href="{{ path("product_modify",{id:product.id}) }}"><button type="button" class="btn btn-info">Modifier</button></a>
 
 
 

@@ -14,6 +14,12 @@
 
 {% block content %}
 
+{% for flash_message in app.session.flashBag.get('success3') %}
+    <div class="flash-notice">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
 <!-- Main content -->
 <section class="content">
 
@@ -23,7 +29,7 @@
         <div class="box-header">
 
             <h3 class="box-title">Toutes les categories</h3>
-            <button type="button" class="btn btn-info btn-sm">Créer</button>
+            <a href="{{ path('categorie_create') }}" > <button type="button" class="btn btn-info btn-sm">Créer</button></a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -31,27 +37,24 @@
                 <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Position</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>Date</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for categorie in categories %}
                     <tr>
-                        {% if categorie.active == true %}
                         <td><strong>{{ categorie.id }} </strong</td>
-                        {% else %}
-                        <td>{{ categorie.id }} </td>
-                        {%  endif %}
+                        <td>{{ categorie.position }}</td>
                         <td>{{ categorie.title }} </td>
                         <td>{{ categorie.description|slice(0,50)|raw|nl2br }} ({{ categorie.description|length }})</td>
-                        <td>{{ categorie.date_created|date("d/m/Y") }} </td>
+                        {#<td>{{ categorie.date_created|date("d/m/Y") }} </td>#}
                         <td><div class="btn-group">
                                 <a href="{{ path("show_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn-info">Voir</button></a>
-                                <a href="{{ path("show_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn bg-maroon">Editer</button></a>
-                                <a href="{{ path("show_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn-primary">Supprimer</button></a>
+                                <a href="{{ path("categorie_modify",{id:categorie.id}) }}"><button type="button" class="btn btn bg-maroon">Editer</button></a>
+                                <a href="{{ path("categorie_remove",{id:categorie.id}) }}"><button type="button" class="btn btn-primary">Supprimer</button></a>
                             </div></td>
                     </tr>
                 {% endfor %}

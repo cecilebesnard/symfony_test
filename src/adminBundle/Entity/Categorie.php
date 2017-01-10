@@ -4,14 +4,15 @@ namespace adminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Product
+ * Categorie
  *
- * @ORM\Table(name="product")
- * @ORM\Entity(repositoryClass="adminBundle\Repository\ProductRepository")
+ * @ORM\Table(name="categorie")
+ * @ORM\Entity(repositoryClass="adminBundle\Repository\CategorieRepository")
  */
-class Product
+class Categorie
 {
     /**
      * @var int
@@ -25,13 +26,11 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100)
+     * @ORM\Column(name="Title", type="string", length=200)
      * @Assert\NotBlank()
      * @Assert\Length(
-     *      min = 5,
-     *      max = 100,
-     *      minMessage = "Votre titre doit contenir au moins {{ limit }} caracteres",
-     *      maxMessage = "Votre titre doit contenir au maximum {{ limit }} caractères"
+     *      min = 2,
+     *      minMessage = "Votre titre doit contenir au moins {{ limit }} caracteres"
      * )
      */
     private $title;
@@ -39,34 +38,24 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="Description", type="text")
      * @Assert\NotBlank()
-     * *@Assert\Length(
+     * @Assert\Length(
      *      max = 300,
-     *      maxMessage = "Votre titre doit contenir au maximum {{ limit }} caractères"
+     *      maxMessage = "Votre titre doit contenir au maximum {{ limit }} caracteres"
      * )
+     *
      */
     private $description;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="Position", type="integer")
      * @Assert\NotBlank()
-     * @Assert\GreaterThan(
-     *     value = 0,
-     *     message = "Le prix doit etre superieur {{ compared_value }}"
-     * )
-     */
-    private $price;
-
-    /**
-     * @var float
      *
-     * @ORM\Column(name="quantity", type="integer")
-     * @Assert\NotBlank()
      */
-    private $quantity;
+    private $position;
 
 
     /**
@@ -84,7 +73,7 @@ class Product
      *
      * @param string $title
      *
-     * @return Product
+     * @return Categorie
      */
     public function setTitle($title)
     {
@@ -108,7 +97,7 @@ class Product
      *
      * @param string $description
      *
-     * @return Product
+     * @return Categorie
      */
     public function setDescription($description)
     {
@@ -128,51 +117,40 @@ class Product
     }
 
     /**
-     * Set price
+     * Set position
      *
-     * @param float $price
+     * @param integer $position
      *
-     * @return Product
+     * @return Categorie
      */
-    public function setPrice($price)
+    public function setPosition($position)
     {
-        $this->price = $price;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get price
-     *
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     *
-     * @return Product
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
+     * Get position
      *
      * @return int
      */
-    public function getQuantity()
+    public function getPosition()
     {
-        return $this->quantity;
+        return $this->position;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function Validate(ExecutionContextInterface $context, $payload)
+    {
+        if($this->getPosition() == 0 && $this->getTitle() !="Par Défaut")
+        {
+            $context->buildViolation('La position 0 est reservée à la categorie "par defaut"')
+               // ->atPath('position')
+                ->addViolation();
+        }
     }
 }
 

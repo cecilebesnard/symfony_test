@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Marques{% endblock %}
+
+{% block ariane %}
+    <li class="active">Marques</li>
+
+{% endblock %}
+
+{% block content %}
+    <h1>Brands list</h1>
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="box">
+
+        <div class="box-header">
+
+            <h3 class="box-title">Toutes les marques</h3>
+            <a href="{{ path('brand_new') }}" > <button type="button" class="btn btn-info btn-sm">Créer</button></a>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for brand in brands %}
+            <tr>
+                <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
+                <td>{{ brand.title }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('brand_show', { 'id': brand.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+
+{% endblock %}

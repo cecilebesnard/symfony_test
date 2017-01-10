@@ -1,0 +1,89 @@
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}Création de categorie{% endblock %}
+
+{% block ariane %}
+    <li class="active"><a href="{{ path('categorie') }}">Categorie</a></li>
+    <li class="active">Création de categorie</li>
+
+{% endblock %}
+
+{% block content %}
+
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(formCategorie, {attr: {novalidate:"novalidate"}}) }}
+    {{ form_errors(formCategorie) }}
+
+    <div class="box box-success">
+        <div class="box-body">
+
+            <div>
+
+                {{ form_errors(formCategorie.title) }}
+
+
+                {{ form_label(formCategorie.title , "Nom de la catégorie", {label_attr: {class: 'labelform'} } )  }}
+
+
+                {{ form_widget(formCategorie.title , {
+                    attr: {
+                        class: "form-control"
+                    }
+                }) }}
+            </div>
+
+            <div>
+
+                {{ form_errors(formCategorie.description) }}
+
+
+                {{ form_label(formCategorie.description , "Description de la catégorie",       {label_attr: {class: 'labelform'} } )  }}
+
+
+                {{ form_widget(formCategorie.description , {
+                    attr: {
+                        class: "form-control"
+                    }
+                }) }}
+            </div>
+
+
+            <div>
+
+                {{ form_errors(formCategorie.position) }}
+
+
+                {{ form_label(formCategorie.position, "Position",       {label_attr: {class: 'labelform'} } )  }}
+
+
+                {{ form_widget(formCategorie.position , {
+                    attr: {
+                        class: "form-control"
+                    }
+                }) }}
+            </div>
+
+
+
+            <div class="box-footer">
+                <button class="btn btn-info btn-sm">Envoyer</button>
+            </div>
+
+            {{ form_end(formCategorie) }}
+        </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
+
