@@ -10,4 +10,72 @@ namespace adminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+                      ->select('prod')
+                      ->from('adminBundle:Product' , 'prod')
+                      ->getQuery();
+
+        die(dump($query->getResult()));
+    }
+
+    public function myFind($id)
+    {
+
+        // Creation d'une requête DQL
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT prod
+                          FROM adminBundle:Product prod
+                          WHERE prod.id = :identifiant
+                    ')
+            ->setParameter('identifiant', $id);
+        // si plusieurs parametres
+        // ->setParameters([ 'identifiant' => $id, 'autre variable' => $autre])
+        die(dump($query->getOneOrNullResult()));
+
+    }
+
+    public function lessThanFive()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+                      ->select('prod')
+                      ->from('adminBundle:Product' , 'prod')
+                      ->where('prod.quantity < 5')
+                      ->getQuery();
+        die(dump($query->getResult()));
+    }
+
+    public function equalToZero()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('prod')
+            ->from('adminBundle:Product' , 'prod')
+            ->where('prod.quantity = 0')
+            ->getQuery();
+        die(dump($query->getResult()));
+    }
+
+    public function totalProduct()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('COUNT(prod)')
+            ->from('adminBundle:Product' , 'prod')
+            ->getQuery();
+        die(dump($query->getOneOrNullResult()));
+    }
+
+    public function totalProductQuantity()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(prod.price)')
+            ->from('adminBundle:Product' , 'prod')
+            ->getQuery();
+        die(dump($query->getOneOrNullResult()));
+    }
+
+
 }
+

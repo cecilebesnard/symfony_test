@@ -1,32 +1,33 @@
-{% extends 'layout.html.twig' %}
+{% extends "layout.html.twig" %}
 
+{% block title %}Show-brand{% endblock %}
+
+{% block ariane %}
+    <li class="active"><a href="{{ path('brand_index') }}">Marques</a></li>
+    <li class="active">{{ brand.title }}</li>
+{% endblock %}
 {% block content %}
-    <h1>Brand</h1>
+    <h1>Marques</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ brand.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ brand.title }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+                <p>{{ brand.id }}</p>
+
+                <h2>{{ brand.title }}</h2>
+
+
+<div class="btn-group">
+
+            <a href="{{ path('brand_index') }}"><button type="button" class="btn btn-info">Back to the list</button></a>
+
+            <a href="{{ path('brand_edit', { 'id': brand.id }) }}"><button type="button" class="btn btn-info">Edit</button></a>
+
+
+
+
+    </div>
+
+    {{ form_start(delete_form) }}
+    <input type="submit" value="Delete">
+    {{ form_end(delete_form) }}
 {% endblock %}

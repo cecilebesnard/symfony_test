@@ -1,13 +1,37 @@
+
 {% extends 'layout.html.twig' %}
 
+{% block title %}Modification de marque{% endblock %}
+
+{% block ariane %}
+    <li class="active"><a href="{{ path('brand_index') }}">Marque</a></li>
+    <li class="active">modification de marque</li>
+
+{% endblock %}
+
 {% block content %}
+
+    {% for flash_message in app.session.flashBag.get('success2') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
     <h1>Brand edit</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+<div class="box box-success">
+    <div class="box-body">
 
+        {{ form_widget(edit_form) }}
+
+
+        <div class="box-footer">
+            <button class="btn btn-info btn-sm">Envoyer</button>
+        </div>
+
+    {{ form_end(edit_form) }}
+    </div>
+</div>
     <ul>
         <li>
             <a href="{{ path('brand_index') }}">Back to the list</a>

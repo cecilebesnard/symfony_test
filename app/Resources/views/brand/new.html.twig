@@ -1,16 +1,35 @@
+
 {% extends 'layout.html.twig' %}
+
+{% block title %}Création de categorie{% endblock %}
+
+{% block ariane %}
+    <li class="active"><a href="{{ path('brand_index') }}">Marques</a></li>
+    <li class="active">Création de marque</li>
+
+{% endblock %}
 
 {% block content %}
     <h1>Brand creation</h1>
 
+
+<div class="box box-success">
+    <div class="box-body">
+
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+        {{ form_label(form.title , "Titre de la marque",       {label_attr: {class: 'labelform'} } )  }}
+        {{ form_widget(form.title , {
+            attr: {
+                class: "form-control"
+            }
+        }) }}
+        <div class="box-footer">
+            <button class="btn btn-info btn-sm">Créer</button>
+        </div>
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        </div>
+    </div>
+
 {% endblock %}

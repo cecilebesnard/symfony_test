@@ -1,0 +1,13 @@
+{% for cat in categories %}
+
+
+    <li class="treeview">
+        <a href="{{ path("show_categorie",{id:cat.id}) }}" >
+            <i class="fa fa-arrow-right"></i>
+            <span>{{ cat.title }}</span>
+            <span class="pull-right-container">
+
+        </a>
+
+    </li>
+{% endfor %}

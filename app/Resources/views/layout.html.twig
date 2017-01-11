@@ -345,10 +345,23 @@
 
                 </li>
 
+                <li class="{% if app.request.get("_route") == "feedback" %} active {% endif %}treeview">
+                    <a href="{{ path('brand_index') }}" >
+                        <i class="fa fa-cubes"></i>
+                        <span>Marques</span>
+                        <span class="pull-right-container">
+
+                    </a>
+
+                </li>
+
+                {{ render(controller("adminBundle:Categorie:renderCategorie")) }}
 
 
             </ul>
         </section>
+
+
         <!-- /.sidebar -->
     </aside>
 
