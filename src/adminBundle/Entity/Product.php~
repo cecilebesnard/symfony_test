@@ -89,7 +89,7 @@ class Product
      * @var datetime
      *
      * @ORM\Column(name="createdAt", type="datetime")
-     * @Assert\NotBlank()
+     *
      */
     private $createdAt;
 
@@ -97,10 +97,18 @@ class Product
      * @var datetime
      *
      * @ORM\Column(name="updateAt", type="datetime")
-     * @Assert\NotBlank()
+     *
      */
     private $updateAt;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string")
+     *
+     */
+    private $image;
 
     /**
      * Get id
@@ -273,5 +281,53 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Product
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     *
+     * @return Product
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
     }
 }

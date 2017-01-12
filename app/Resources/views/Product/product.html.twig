@@ -53,6 +53,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Marque</th>
                                 <th>Title</th>
                                 <th>Description</th>
@@ -65,6 +66,7 @@
                             {% for product in products %}
                             <tr>
 
+                               <td><img style="width: 100px" src="{{ asset("upload/"~product.image) }}" alt="image"/></td>
                                 <td>{{ product.marque.title }} </td>
 
                {% if product.price == lemoincher %}

@@ -134,10 +134,24 @@ class ProductController extends Controller
 
         if ($formProduct->isSubmitted() && $formProduct->isValid())
         {
-           // die(dump($product));
+           //die(dump($product));
 
             //pour sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
+
+            /* methode avant d'effectuer le transfert dans le listener
+            //recuperation de l'image
+            $image = $product->getImage();
+
+
+            //service utils
+            $serviceUtils = $this->get('admin.service.upload');
+            $filename = $serviceUtils->upload($image);
+
+
+            //non unique ds la BDD
+            $product->setImage($filename);*/
+
             $em->persist($product);
             $em->flush();
 
@@ -175,6 +189,21 @@ class ProductController extends Controller
 
             //pour sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
+
+            //recuperation de l'image
+            $image = $product->getImage();
+
+            //service utils
+            $serviceUtils = $this->get('admin.service.upload');
+            $fileName = $serviceUtils->generateUniqId() . '.' .$image->guessExtension();
+
+            //transfert de l'image
+            $image->move('upload/' , $fileName );
+
+
+            //non unique ds la BDD
+            $product->setImage($fileName);
+
             $em->persist($product);
             $em->flush();
 
