@@ -13,15 +13,18 @@ class LoadCategorieData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager)
     {
 
-        for ($i = 0; $i<10 ; $i++){
+        for ($i = 0; $i<5 ; $i++){
             $categorie = new Categorie();
-            $categorie->setTitle('une nouvelle categorie ');
+            $categorie->setTitle('une nouvelle categorie '.$i);
             $categorie->setDescription('Lorem Ipsum');
             $categorie->setPosition($i);
             $categorie->setActive(rand(0, 1));
 
             $manager->persist($categorie);
             $manager->flush();
+
+            $this->addReference('nouvelle-categorie'.$i, $categorie);
+
         }
     }
 

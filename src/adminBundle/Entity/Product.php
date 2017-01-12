@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\ProductRepository")
+ * @ORM\EntityListeners({"adminBundle\Listener\ProductListener"})
  */
 class Product
 {
@@ -69,12 +70,36 @@ class Product
     private $quantity;
 
     /**
-     *
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Brand")
      *
      * @ORM\JoinColumn(name="id_brand", referencedColumnName="id", nullable=false)
      */
     private $marque;
+
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToMany(targetEntity="Categorie" , inversedBy="products")
+     * @ORM\JoinTable(name="products_categories")
+     */
+    private $categories;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
+     *
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="updateAt", type="datetime")
+     *
+     */
+    private $updateAt;
 
 
     /**
@@ -207,5 +232,94 @@ class Product
     public function getMarque()
     {
         return $this->marque;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \adminBundle\Entity\Categorie $category
+     *
+     * @return Product
+     */
+    public function addCategory(\adminBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \adminBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\adminBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Product
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     *
+     * @return Product
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
     }
 }

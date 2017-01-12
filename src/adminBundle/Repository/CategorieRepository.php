@@ -17,7 +17,7 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
             ->from('adminBundle:Categorie' , 'cat')
             ->getQuery();
 
-        die(dump($query->getOneOrNullResult()));
+        die(dump($query->getSingleScalarResult()));
     }
 
     public function categorieActive()

@@ -24,6 +24,9 @@
             {#<strong> {{ product.date_created|date("d/m/Y") }} </strong>#}
             <p>Prix : {{ product.price }} €</p>
             <p>{{ product.quantity }} en stock</p>
+            {% for categories in product.categories %}
+                <p>{{ categories.title }}</p>
+            {% endfor %}
 
     <a href="{{ path("product_modify",{id:product.id}) }}"><button type="button" class="btn btn-info">Modifier</button></a>
 

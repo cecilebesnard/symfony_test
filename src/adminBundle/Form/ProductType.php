@@ -2,6 +2,7 @@
 
 namespace adminBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,8 +17,19 @@ class ProductType extends AbstractType
         $builder->add('title')
                 ->add('description')
                 ->add('price')
-                ->add('quantity');
-
+                ->add('quantity')
+                ->add('marque', EntityType::class, [
+                    'class' => 'adminBundle\Entity\Brand',
+                    'choice_label' => 'title',
+                    'placeholder' => ''
+                ])
+                ->add('categories', EntityType::class,[
+                    'class' => 'adminBundle\Entity\Categorie',
+                    'choice_label' => 'title',
+                    'placeholder' => '',
+                    'multiple' => true,
+                    'expanded' => true
+                ]);
     }
     
     /**

@@ -14,23 +14,27 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-       for ($i = 0; $i<5 ; $i++)
+       for ($i = 0; $i<10 ; $i++)
        {
-        for ($j = 0; $j<3 ; $j++)
-        {
+
 
         $product = new Product();
-        $product->setTitle('un nouveau titre '.$j);
-        $product->setDescription('Lorem Ipsum'.$j);
+        $product->setTitle('un nouveau titre '.$i);
+        $product->setDescription('Lorem Ipsum'.$i);
         $product->setPrice(rand(1,1000));
         $product->setQuantity(rand(2, 15));
 
         $product->setMarque($this->getReference('nouvelle-marque'.$i));
 
+           //creation d'une boucle afin d'avoir 3 cat dans chaque produit
+           for ($j = 0; $j<3 ; $j++)
+           {
+        $product->addCategory($this->getReference('nouvelle-categorie' . $j));
+           }
 
         $manager->persist($product);
         $manager->flush();
-        }
+
        }
     }
 

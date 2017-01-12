@@ -43,7 +43,12 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()->createQueryBuilder()
                       ->select('prod')
                       ->from('adminBundle:Product' , 'prod')
-                      ->where('prod.quantity < 5')
+                      ->join('prod.marque' , 'ma')
+                      ->setParameters(["quantity" => 5 ,
+                                        "title_brand" => '%marque 3%'])
+                      ->where('prod.quantity < :quantity')
+                      ->andWhere('ma.title LIKE :title_brand')
+
                       ->getQuery();
         die(dump($query->getResult()));
     }

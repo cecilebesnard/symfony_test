@@ -23,8 +23,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $tousLesProduits = $em->getRepository('adminBundle:Categorie')->categorieActiveOrNot();
+
+
         return $this->render('Default/index.html.twig');
     }
 

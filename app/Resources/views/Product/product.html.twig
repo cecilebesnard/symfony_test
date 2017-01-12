@@ -57,6 +57,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Prix</th>
+                                <th>Categories</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -74,6 +75,13 @@
                {% endif %}
                                 <td>{{ product.description }} </td>
                                 <td>{{ product.price }} </td>
+                                <td>
+
+                                    {% for categories in product.categories %}
+                                        <p>{{ categories.title }}</p>
+                                    {% endfor %}
+
+                                </td>
                         {#affichage avec variable $product avant DBB
                                 <td>{{ product.date_created|date("d/m/Y") }} </td>#}
                                 <td><div class="btn-group">

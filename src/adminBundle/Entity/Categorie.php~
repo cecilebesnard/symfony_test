@@ -59,10 +59,15 @@ class Categorie
 
     /**
      * @ORM\Column(name="Active", type="boolean")
-     *
+     * @Assert\NotBlank()
      */
     private $active;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="categories")
+     *
+     */
+    private $products;
 
     /**
      * Get id
@@ -158,5 +163,69 @@ class Categorie
                 ->addViolation();
         }
     }
-}
 
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Categorie
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \adminBundle\Entity\Product $product
+     *
+     * @return Categorie
+     */
+    public function addProduct(\adminBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \adminBundle\Entity\Product $product
+     */
+    public function removeProduct(\adminBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}
