@@ -162,7 +162,7 @@ class ProductController extends Controller
         }
 
         return $this->render('Product/create.html.twig', [
-            'formProduct' => $formProduct->createView()
+            'formProduct' => $formProduct->createView() , 'product' => $product
         ]);
     }
 
@@ -180,7 +180,9 @@ class ProductController extends Controller
         {
             throw $this->createNotFoundException('le produit n\'existe pas');
         }
+
         $formProduct = $this->createForm(ProductType::class , $product);
+
         $formProduct->handleRequest($request);
 
         if ($formProduct->isSubmitted() && $formProduct->isValid())
@@ -190,19 +192,7 @@ class ProductController extends Controller
             //pour sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
 
-            //recuperation de l'image
-            $image = $product->getImage();
 
-            //service utils
-            $serviceUtils = $this->get('admin.service.upload');
-            $fileName = $serviceUtils->generateUniqId() . '.' .$image->guessExtension();
-
-            //transfert de l'image
-            $image->move('upload/' , $fileName );
-
-
-            //non unique ds la BDD
-            $product->setImage($fileName);
 
             $em->persist($product);
             $em->flush();
@@ -214,7 +204,7 @@ class ProductController extends Controller
         }
 
         return $this->render('Product/create.html.twig', [
-            'formProduct' => $formProduct->createView()
+            'formProduct' => $formProduct->createView() , 'product' => $product
         ]);
     }
 

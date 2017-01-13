@@ -103,8 +103,7 @@
 
 
             {{ form_label(formProduct.image , "Image",       {label_attr: {class: 'labelform'} } )  }}
-
-
+            <img style="width: 100px" src="{{ asset('upload/' ~ product.image) }}" alt="image introuvable"></img>
             {{ form_widget(formProduct.image) }}
         </div>
         <div>
