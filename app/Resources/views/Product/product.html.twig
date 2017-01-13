@@ -13,6 +13,8 @@
 {% endblock %}
 {% block content %}
 
+
+
 {% for flash_message in app.session.flashBag.get('success3') %}
     <div class="flash-notice">
         {{ flash_message }}

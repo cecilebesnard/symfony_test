@@ -8,6 +8,12 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    admin.twig.extension:
+        class: adminBundle\Twig\AppExtension
+        arguments: [ '@doctrine' , '@twig' ]
+        tags:
+            - { name: twig.extension }
+
     admin.service.unlink:
         class: adminBundle\Service\UnlinkService
         arguments: [ '%upload_dir%' ]

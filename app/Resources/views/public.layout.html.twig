@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "public.base.html.twig" %}
 
 {% block body %}
 <div class="wrapper">
@@ -293,70 +293,44 @@
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="
                 {% if app.request.get("_route") == "admin" %} active {% endif %} treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                        <span class="pull-right-container">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Accueil</span>
+                    <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ path('admin') }}" ><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                    </ul>
-                </li>
+                </a>
+
 
                 <li class="{% if app.request.get("_route") == "product" %} active {% endif %}treeview">
-                    <a href="{{ path('product') }}" >
-                        <i class="fa fa-files-o"></i>
-                        <span>Produits</span>
-                        <span class="pull-right-container">
+                <a href="#" >
+                    <i class="fa fa-files-o"></i>
+                    <span>Menu 1</span>
+                    <span class="pull-right-container">
 
-                    </a>
+                </a>
 
                 </li>
 
                 <li class="{% if app.request.get("_route") == "categorie" %} active {% endif %}treeview">
-                    <a href="{{ path('categorie') }}" >
-                        <i class="fa fa-tasks"></i>
-                        <span>Categories</span>
-                        <span class="pull-right-container">
+                <a href="#" >
+                    <i class="fa fa-tasks"></i>
+                    <span>Menu 2</span>
+                    <span class="pull-right-container">
 
-                    </a>
+                </a>
 
                 </li>
 
                 <li class="{% if app.request.get("_route") == "contact" %} active {% endif %}treeview">
-                    <a href="{{ path('contact') }}" >
-                        <i class="fa fa-envelope"></i>
-                        <span>Contact</span>
-                        <span class="pull-right-container">
+                <a href="#" >
+                    <i class="fa fa-envelope"></i>
+                    <span>Menu 2</span>
+                    <span class="pull-right-container">
 
-                    </a>
-
-                </li>
-
-                <li class="{% if app.request.get("_route") == "feedback" %} active {% endif %}treeview">
-                    <a href="{{ path('feedback') }}" >
-                        <i class="fa fa-commenting-o"></i>
-                        <span>Feedback</span>
-                        <span class="pull-right-container">
-
-                    </a>
+                </a>
 
                 </li>
 
-                <li class="{% if app.request.get("_route") == "feedback" %} active {% endif %}treeview">
-                    <a href="{{ path('brand_index') }}" >
-                        <i class="fa fa-cubes"></i>
-                        <span>Marques</span>
-                        <span class="pull-right-container">
-
-                    </a>
-
-                </li>
-
-                {#{{ render(controller("adminBundle:Categorie:renderCategorie")) }}#}
-        {{ ma_fonction()|raw }}
 
             </ul>
         </section>
@@ -374,14 +348,14 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active"><a href="{{ path('admin') }}">Dashboard</a></li>
+                <li class="active"><a href="#">Accueil</a></li>
 
                 {% block ariane %}{% endblock %}
             </ol>
         </section>
 
         <section class="content">
-    {% block content %}{%  endblock %}
+            {% block content %}{%  endblock %}
         </section>
 
     </div>
