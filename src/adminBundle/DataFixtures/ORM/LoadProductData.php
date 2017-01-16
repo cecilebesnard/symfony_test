@@ -27,7 +27,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $product->setMarque($this->getReference('nouvelle-marque'.$i));
 
            //creation d'une boucle afin d'avoir 3 cat dans chaque produit
-           for ($j = 0; $j<3 ; $j++)
+           for ($j = 0; $j<5 ; $j++)
            {
         $product->addCategory($this->getReference('nouvelle-categorie' . $j));
            }

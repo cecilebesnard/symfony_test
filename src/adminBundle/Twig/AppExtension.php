@@ -27,14 +27,20 @@ class AppExtension extends \Twig_Extension
         //retourne une liste de nouvelle fonction ss forme de []
         //creer autant de new twig_single function que de nvelle fonction
         return [
-          new \Twig_SimpleFunction('ma_fonction' , [$this, 'maFonction'])
+          new \Twig_SimpleFunction('listAllCategories' , [$this, 'listAllCategories'])
         ];
     }
 
-    public function maFonction()
+    public function listAllCategories($render = null)
     {
         $categories = $this->doctrine->getRepository('adminBundle:Categorie')->findAll();
         //die(dump($results));
-        return $this->twig->render('Categorie/renderCategories.html.twig', ['categories' => $categories]);
+
+        $template = 'Public/Partials/renderCategories.html.twig';
+        if ($render == 'back') {
+            $template = 'Categorie/renderCategories.html.twig';
+        }
+
+        return $this->twig->render($template, ['categories' => $categories]);
     }
 }

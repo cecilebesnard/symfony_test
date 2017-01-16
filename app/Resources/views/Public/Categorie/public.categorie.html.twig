@@ -1,0 +1,68 @@
+{% extends "public.layout.html.twig" %}
+
+{% block content %}
+
+    <header class="jumbotron hero-spacer">
+        <h1>{{ categorie.title }}</h1>
+        <p>{{ categorie.description }}</p>
+        <p><a class="btn btn-primary btn-large">Call to action!</a>
+        </p>
+    </header>
+
+    <hr>
+
+
+    <ul class="pagination">
+
+        {% set totalproduct = totalProducts|length %}
+        {% set pages = (totalproduct/4)|round %}
+
+        {% for i in 1..pages %}
+       <li
+       {% if page == i %}
+           class = "active"
+           {% endif %}><a href="{{ path("show_publicCategorie",{id:categorie.id}) }}?page={{ i }}">{{ i }}</a></li>
+    {% endfor %}
+
+    </ul>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Latest Features</h3>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Page Features -->
+
+
+
+
+
+    <div class="row text-center">
+    {% for product in products %}
+        <div class="col-md-3 col-sm-6 hero-feature">
+            <div class="thumbnail">
+                <img src="{{ asset("upload/"~product.image) }}" alt="">
+                <div class="caption">
+                    <h3>{{ product.title }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p>
+                        <a href="{{ path("show_publicProduct",{id:product.id}) }}">More Info</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    {% endfor %}
+
+    </div>
+
+
+    <!-- /.row -->
+
+
+
+
+{% endblock %}

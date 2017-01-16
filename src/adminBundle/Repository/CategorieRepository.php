@@ -14,7 +14,7 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('COUNT(cat)')
-            ->from('adminBundle:Categorie' , 'cat')
+            ->from('adminBundle:Categorie', 'cat')
             ->getQuery();
 
         die(dump($query->getSingleScalarResult()));
@@ -24,23 +24,14 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('COUNT(cat)')
-            ->from('adminBundle:Categorie' , 'cat')
+            ->from('adminBundle:Categorie', 'cat')
             ->where('cat.active=1')
             ->getQuery();
 
         die(dump($query->getOneOrNullResult()));
     }
 
-    public function categorieActiveOrNot()
-    {
-        $query = $this->getEntityManager()->createQueryBuilder()
-            ->select('COUNT(cat)')
-            ->from('adminBundle:Categorie' , 'cat')
-            ->groupBy('cat.active')
-            ->getQuery();
 
-        die(dump($query->getResult()));
-    }
 }
 
 

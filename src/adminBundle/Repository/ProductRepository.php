@@ -34,7 +34,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('identifiant', $id);
         // si plusieurs parametres
         // ->setParameters([ 'identifiant' => $id, 'autre variable' => $autre])
-        die(dump($query->getOneOrNullResult()));
+       return $query->getOneOrNullResult();
 
     }
 
@@ -50,7 +50,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                       ->andWhere('ma.title LIKE :title_brand')
 
                       ->getQuery();
-        die(dump($query->getResult()));
+        return $query->getResult();
     }
 
     public function equalToZero()
@@ -60,7 +60,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->from('adminBundle:Product' , 'prod')
             ->where('prod.quantity = 0')
             ->getQuery();
-        die(dump($query->getResult()));
+        return $query->getResult();
     }
 
     public function totalProduct()
@@ -69,7 +69,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->select('COUNT(prod)')
             ->from('adminBundle:Product' , 'prod')
             ->getQuery();
-        die(dump($query->getOneOrNullResult()));
+        return $query->getOneOrNullResult();
     }
 
     public function totalProductQuantity()
@@ -78,7 +78,56 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->select('SUM(prod.price)')
             ->from('adminBundle:Product' , 'prod')
             ->getQuery();
-        die(dump($query->getOneOrNullResult()));
+        return $query->getOneOrNullResult();
+    }
+
+    public function moreExpensive($limit)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('prod')
+            ->from('adminBundle:Product' , 'prod')
+            ->orderBy('prod.price' , 'DESC' )
+            ->setMaxResults($limit)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function maxQuantity($limit)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('prod')
+            ->from('adminBundle:Product' , 'prod')
+            ->orderBy('prod.quantity' , 'DESC' )
+            ->setMaxResults($limit)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function productFromCategorie()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('prod')
+            ->from('adminBundle:Product' , 'prod')
+            ->where('prod.categorie = 151')
+            ->getQuery();
+        //return $query->getResult();
+        die(dump($query->getResult()));
+    }
+
+    // Afficher les produits selon leur catégories
+    public function myFindProductionSelonCategorie($categorie_id, $offset)
+    {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idCat')
+            ->setParameters(['idCat' => $categorie_id])
+            ->setFirstResult($offset)
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+        return $results;
+
     }
 
 
