@@ -25,10 +25,14 @@ class ProductController extends Controller
         $product = $em->getRepository("adminBundle:Product")
             ->find($id);
 
+        $em1 = $this->getDoctrine()->getManager();
+        $comments = $em1->getRepository("adminBundle:Comment")
+            ->findBy(['id_product' => $product->getId()]);
+
         if (empty($product)) {
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
 
-        return $this->render('Public/Product/public.product.html.twig' , [ 'product' => $product]);
+        return $this->render('Public/Product/public.product.html.twig' , [ 'product' => $product , 'comments' => $comments]);
     }
 }

@@ -27,6 +27,10 @@
                     <li>
                         <a href="#">Contact</a>
                     </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ url('admin') }}">Accès à l'administration</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

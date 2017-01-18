@@ -1,0 +1,67 @@
+{% extends "public.layout.html.twig" %}
+
+{% block content %}
+
+    {{ form_start(formUser, {attr: {novalidate:"novalidate"}}) }}
+    {{ form_errors(formUser) }}
+
+    <div class="box box-success">
+        <div class="box-body">
+
+            <div>
+
+        {{ form_errors(formUser.username) }}
+
+
+        {{ form_label(formUser.username , "Nom", {label_attr: {class: 'labelform'} } )  }}
+
+
+        {{ form_widget(formUser.username , {
+            attr: {
+                class: "form-control"
+            }
+        }) }}
+            </div>
+
+
+            <div>
+
+            {{ form_errors(formUser.password) }}
+
+
+            {{ form_label(formUser.password , "Mot de passe", {label_attr: {class: 'labelform'} } )  }}
+
+
+            {{ form_widget(formUser.password , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+            </div>
+
+             <div>
+
+            {{ form_errors(formUser.email) }}
+
+
+            {{ form_label(formUser.email , "Email", {label_attr: {class: 'labelform'} } )  }}
+
+
+            {{ form_widget(formUser.email , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <button class="btn btn-info btn-sm">Envoyer</button>
+        </div>
+
+
+    </div>
+    {{ form_end(formUser) }}
+
+
+{% endblock %}

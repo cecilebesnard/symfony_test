@@ -19,8 +19,6 @@ class CommentListener
         $setCreateAt = new \DateTime('now');
         $entity->setCreateAt($setCreateAt);
 
-
-
     }
 
 }

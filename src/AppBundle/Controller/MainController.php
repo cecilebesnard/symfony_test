@@ -25,13 +25,10 @@ class MainController extends Controller
         $products= $em->getRepository("adminBundle:Product")
             ->moreExpensive(6);
 
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
         $productsImage= $em->getRepository("adminBundle:Product")
             ->maxQuantity(3);
 
-        $em2 = $this->getDoctrine()->getManager();
-        $categories= $em2->getRepository("adminBundle:Categorie")
-            ->findAll();
 
         return $this->render('Public/Main/index.html.twig' , [ 'products' => $products , 'productsImage' => $productsImage]);
     }
