@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\CommentRepository")
+ * @ORM\EntityListeners({"adminBundle\Listener\CommentListener"})
  */
 class Comment
 {
@@ -51,10 +52,10 @@ class Comment
     private $score;
 
     /**
-     * @Assert\NotBlank()
+     *
      * @ORM\ManyToOne(targetEntity="Product")
      *
-     * @ORM\JoinColumn(name="id_product", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
      */
     private $id_product;
 
@@ -163,5 +164,28 @@ class Comment
     {
         return $this->score;
     }
-}
 
+    /**
+     * Set idProduct
+     *
+     * @param \adminBundle\Entity\Product $idProduct
+     *
+     * @return Comment
+     */
+    public function setIdProduct(\adminBundle\Entity\Product $idProduct)
+    {
+        $this->id_product = $idProduct;
+
+        return $this;
+    }
+
+    /**
+     * Get idProduct
+     *
+     * @return \adminBundle\Entity\Product
+     */
+    public function getIdProduct()
+    {
+        return $this->id_product;
+    }
+}

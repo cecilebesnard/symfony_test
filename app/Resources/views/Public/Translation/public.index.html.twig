@@ -1,0 +1,23 @@
+{% extends "public.layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Traduction</h1>
+    <p>{{ 1000 | localizednumber('percent') }}</p>
+    <p>{{ '2017-01-19' | localizeddate('medium' , 'none') }}</p>
+    <p>{{ "text.content"|trans }}</p>
+    <p>{{ "text.placeholder" | trans({ '%name%' : 'toto' }) }}</p>
+
+    <p>{{ 'admin.homepage' | trans( {}, 'admin' ) }}</p>
+
+    {% set route = app.request.get('_route') %}
+    {% set route_params = app.request.get('_route_params') %}
+    {{ dump(route_params) }}
+
+    {% for locale in locales %}
+        {%  set route_merge = route_params | merge( { '_locale' : locale } ) %}
+        <li><a href="{{ url(route, route_merge) }}">{{ locale }}</a></li>
+        {% endfor %}
+
+
+{%  endblock %}

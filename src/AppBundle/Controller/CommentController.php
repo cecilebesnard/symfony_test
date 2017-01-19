@@ -42,7 +42,7 @@ class CommentController extends Controller
 
             $this->addFlash('success' , 'Votre commentaire a bien été ajouté');
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('show_publicProduct' , ['id' => $id->getId()]);
         }
        // die(dump($formComment));
         return $this->render('Public/Product/public.comment.html.twig', [

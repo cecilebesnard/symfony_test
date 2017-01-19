@@ -24,13 +24,13 @@
 
         <div>
 
-            {{ form_errors(formProduct.title) }}
+            {{ form_errors(formProduct.titleFR) }}
 
 
-            {{ form_label(formProduct.title , "Nom de l'article", {label_attr: {class: 'labelform'} } )  }}
+            {{ form_label(formProduct.titleFR , "Nom de l'article", {label_attr: {class: 'labelform'} } )  }}
 
 
-            {{ form_widget(formProduct.title , {
+            {{ form_widget(formProduct.titleFR , {
                 attr: {
                     class: "form-control"
                 }
@@ -39,13 +39,43 @@
 
         <div>
 
-            {{ form_errors(formProduct.description) }}
+            {{ form_errors(formProduct.titleEN) }}
 
 
-            {{ form_label(formProduct.description , "Description de l'article",       {label_attr: {class: 'labelform'} } )  }}
+            {{ form_label(formProduct.titleEN , "Name", {label_attr: {class: 'labelform'} } )  }}
 
 
-            {{ form_widget(formProduct.description , {
+            {{ form_widget(formProduct.titleEN , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+        </div>
+
+        <div>
+
+            {{ form_errors(formProduct.descriptionFR) }}
+
+
+            {{ form_label(formProduct.descriptionFR , "Description de l'article",       {label_attr: {class: 'labelform'} } )  }}
+
+
+            {{ form_widget(formProduct.descriptionFR , {
+                attr: {
+                    class: "form-control"
+                }
+            }) }}
+        </div>
+
+        <div>
+
+            {{ form_errors(formProduct.descriptionEN) }}
+
+
+            {{ form_label(formProduct.descriptionEN , "Product Description",       {label_attr: {class: 'labelform'} } )  }}
+
+
+            {{ form_widget(formProduct.descriptionEN , {
                 attr: {
                     class: "form-control"
                 }

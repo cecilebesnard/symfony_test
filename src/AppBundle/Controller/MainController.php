@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class MainController extends Controller
@@ -18,7 +19,7 @@ class MainController extends Controller
     /**
      * @Route("/" , name="homepage")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -29,8 +30,12 @@ class MainController extends Controller
         $productsImage= $em->getRepository("adminBundle:Product")
             ->maxQuantity(3);
 
+        $locale = $request->getLocale();
+        $doctrine = $this->getDoctrine();
+        $productLocale = $doctrine->getRepository('adminBundle:Product')
+            ->findProductsByLocale($locale);
 
-        return $this->render('Public/Main/index.html.twig' , [ 'products' => $products , 'productsImage' => $productsImage]);
+        return $this->render('Public/Main/index.html.twig' , [ 'products' => $products , 'productsImage' => $productsImage , 'productLocale' => $productLocale]);
     }
 
 }

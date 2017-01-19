@@ -5,21 +5,42 @@
         <img class="img-responsive" src="{{ asset("upload/"~product.image) }}" alt="">
         <div class="caption-full">
             <h4 class="pull-right">{{ product.price }}</h4>
-            <h4><a href="#">{{ product.title }}</a>
+            <h4><a href="#">{{ productLocale.title }}</a>
             </h4>
-            <p>{{ product.description }}</p>
-            <p>Want to make these reviews work? Check out
+            <p>{{ productLocale.description }}</p>
+
 
         </div>
+
+
+
+
+
+
         <div class="ratings">
-            <p class="pull-right">3 reviews</p>
+
             <p>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                4.0 stars
+                {% set commentlength = comments|length %}
+                {% if commentlength > 0 %}
+                    {% set moyscore = 0 %}
+
+
+                    {% for comment in comments %}
+                        {% set moyscore = (moyscore + comment.score) %}
+
+                    {% endfor %}
+                    {% set moyscore = moyscore/commentlength %}
+
+                    {% set moyscoreoff = 5 -moyscore  %}
+
+                {% for i in 1..moyscore|round  %}
+                    <span class="glyphicon glyphicon-star"></span>
+                {% endfor %}
+                {% for i in 1..moyscoreoff|round   %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                {% endfor %}
+                {% endif %}
+
             </p>
         </div>
     </div>
@@ -32,18 +53,24 @@
 
         <hr>
 {% for comment in comments %}
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                {{ comment.author }}
-                <span class="pull-right">{{ comment.createAt|date }}</span>
-                <p>{{ comment.content }}</p>
-            </div>
-        </div>
+    {% set score = comment.score %}
+    {% set scoreoff = 5-score %}
+
+    {% if commentlength > 0 %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for i in 1..score  %}
+                        <span class="glyphicon glyphicon-star"></span>
+                            {% endfor %}
+            {% for i in 1..scoreoff  %}
+                        <span class="glyphicon glyphicon-star-empty"></span>
+            {% endfor %}
+                        {{ comment.author }}
+                        <span class="pull-right">{{ comment.createAt|date }}</span>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </div>
+        {% endif %}
 {% endfor %}
         <hr>
 

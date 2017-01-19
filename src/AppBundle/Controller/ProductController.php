@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class ProductController extends Controller
@@ -18,7 +19,7 @@ class ProductController extends Controller
     /**
      * @Route("/publicProduct/{id}", name="show_publicProduct" , requirements={"id" = "\d+"})
      */
-    public function showAction($id)
+    public function showAction(Request $request ,$id)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -29,10 +30,15 @@ class ProductController extends Controller
         $comments = $em1->getRepository("adminBundle:Comment")
             ->findBy(['id_product' => $product->getId()]);
 
+        $locale = $request->getLocale();
+        $doctrine = $this->getDoctrine();
+        $productLocale = $doctrine->getRepository('adminBundle:Product')
+            ->findProductByLocale($id, $locale);
+
         if (empty($product)) {
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
 
-        return $this->render('Public/Product/public.product.html.twig' , [ 'product' => $product , 'comments' => $comments]);
+        return $this->render('Public/Product/public.product.html.twig' , [ 'product' => $product , 'comments' => $comments , 'productLocale' => $productLocale]);
     }
 }

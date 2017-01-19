@@ -130,6 +130,29 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function findProductByLocale($id = null, $locale)
+    {
+        $locale = strtoupper($locale);
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('product.id' , "product.title$locale AS title", "product.description$locale AS description" , 'product.image' , 'product.price' , 'product.quantity')
+            ->where('product.id = :id')
+            ->setParameters(['id' => $id])
+            ->getQuery()
+            ->getOneOrNullResult();
+        return $results;
+    }
 
+
+    public function findProductsByLocale($locale)
+    {
+        $locale = strtoupper($locale);
+        $results = $this
+            ->createQueryBuilder('product')
+            ->select('product.id' , "product.title$locale AS title", "product.description$locale AS description" , 'product.image', 'product.price', 'product.quantity')
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
 }
 

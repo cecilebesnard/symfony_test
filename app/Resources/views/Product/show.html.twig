@@ -4,7 +4,7 @@
 
 {% block ariane %}
     <li class="active"><a href="{{ path('product') }}">Produits</a></li>
-    <li class="active">{{ product.title }}</li>
+    <li class="active">{{ product.titleEN }}</li>
 {% endblock %}
 
 
@@ -18,9 +18,9 @@
 
 
 
-            <h2> {{  product.title }} </h2>
+            <h2> {{  product.titleEN }} </h2>
             <h3> Marque : {{ product.marque.title }} </h3>
-            <p>Description :  {{ product.description }}</p>
+            <p>Description :  {{ product.descriptionEN }}</p>
             {#<strong> {{ product.date_created|date("d/m/Y") }} </strong>#}
             <p>Prix : {{ product.price }} €</p>
             <p>{{ product.quantity }} en stock</p>

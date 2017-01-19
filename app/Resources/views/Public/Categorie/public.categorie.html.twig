@@ -45,8 +45,10 @@
             <div class="thumbnail">
                 <img src="{{ asset("upload/"~product.image) }}" alt="">
                 <div class="caption">
-                    <h3>{{ product.title }}</h3>
-                    <p>{{ product.description }}</p>
+                    {% set locale = app.request.locale %}
+                    <h3>{{ attribute(product, 'title' ~ locale) }}</h3>
+                    <p>{{ attribute(product, 'description' ~ locale) }}</p>
+
                     <p>
                         <a href="{{ path("show_publicProduct",{id:product.id}) }}">More Info</a>
                     </p>

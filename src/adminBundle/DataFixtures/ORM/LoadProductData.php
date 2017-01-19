@@ -19,8 +19,10 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
 
         $product = new Product();
-        $product->setTitle('un nouveau titre '.$i);
-        $product->setDescription('Lorem Ipsum'.$i);
+        $product->setTitleFR('un nouveau titre '.$i);
+        $product->setTitleEN('A new title '.$i);
+        $product->setDescriptionFR('Lorem Ipsum'.$i);
+        $product->setDescriptionEN('Lorem Ipsum'.$i);
         $product->setPrice(rand(1,1000));
         $product->setQuantity(rand(2, 15));
 
