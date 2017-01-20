@@ -16,13 +16,14 @@ class TranslationController extends Controller
 */
 public function indexAction(Request $request)
 {
+    //die(dump($request->getLanguages()));
 
     $locale = $request->getLocale();
     $doctrine = $this->getDoctrine();
     $result = $doctrine->getRepository('adminBundle:Product')
                        ->findProductByLocale(263, $locale);
 
-    die(dump($result));
+
 
 return $this->render('Public/Translation/public.index.html.twig' , ['productLocale' => $result]);
 }

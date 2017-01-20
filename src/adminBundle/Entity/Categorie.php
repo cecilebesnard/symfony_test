@@ -39,11 +39,6 @@ class Categorie
      * @var string
      *
      * @ORM\Column(name="Description", type="text")
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      max = 300,
-     *      maxMessage = "Votre titre doit contenir au maximum {{ limit }} caracteres"
-     * )
      *
      */
     private $description;

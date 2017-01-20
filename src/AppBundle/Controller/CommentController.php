@@ -40,7 +40,7 @@ class CommentController extends Controller
             $em->flush();
 
 
-            $this->addFlash('success' , 'Votre commentaire a bien été ajouté');
+            $this->addFlash('successComment' , 'Votre commentaire a bien été ajouté');
 
             return $this->redirectToRoute('show_publicProduct' , ['id' => $id->getId()]);
         }

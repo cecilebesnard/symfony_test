@@ -53,7 +53,7 @@
                 }) }}
             </div>
 
-
+            {% if formCategorie.position is defined %}
             <div>
 
                 {{ form_errors(formCategorie.position) }}
@@ -68,7 +68,17 @@
                     }
                 }) }}
             </div>
+            {% endif %}
+            <div>
 
+                {{ form_errors(formCategorie.active) }}
+
+
+                {{ form_label(formCategorie.active, "Active",       {label_attr: {class: 'labelform'} } )  }}
+
+
+                {{ form_widget(formCategorie.active) }}
+            </div>
 
 
             <div class="box-footer">
@@ -85,5 +95,15 @@
 
 
 
+{% endblock %}
+
+{% block javascript %}
+        {{ parent() }}
+    <script src="{{ asset("plugins/ckeditor/ckeditor.js") }}"></script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'adminbundle_categorie_title' );
+    </script>
 {% endblock %}
 
