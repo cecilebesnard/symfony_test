@@ -28,8 +28,9 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="security.login")
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
@@ -38,11 +39,15 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+
         return $this->render('Security/login.html.twig', array(
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ));
+
     }
+
+
 
     /**
      * @Route("/logout", name="security.logout")

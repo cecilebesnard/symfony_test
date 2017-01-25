@@ -192,8 +192,6 @@ class ProductController extends Controller
             //pour sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
 
-
-
             $em->persist($product);
             $em->flush();
 

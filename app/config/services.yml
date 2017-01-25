@@ -8,10 +8,16 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    admin.subscriber.kernel.events:
+        class: adminBundle\Subscriber\KernelEventsSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments: ['@twig']
+
     admin.subscriber.categorie.form:
         class: adminBundle\Subscriber\CategorieFormSubscriber
         tags:
-            - { name: kernel.event_subsriber }
+            - { name: kernel.event_subscriber }
 
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl

@@ -34,6 +34,27 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+
+    <script>
+        var btnCookie = $('.cookies a');
+        var divCookie = $('.cookies');
+        btnCookie.on('click', onClickBtnCookie);
+        function onClickBtnCookie(e)
+        {
+            divCookie.fadeOut('slow');
+            $.ajax({
+                method: 'POST',
+                url: 'http://localhost/symfony/web/app_dev.php/fr/app/disclaimer-cookies',
+                data: 'disclaimer=1',
+                success: onSuccess
+            });
+        }
+
+        function onSuccess(data)
+        {
+            console.log(data);
+        }
+    </script>
 {% endblock %}
 </body>
 </html>
