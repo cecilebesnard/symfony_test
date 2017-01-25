@@ -12,7 +12,7 @@ services:
         class: adminBundle\Subscriber\KernelEventsSubscriber
         tags:
             - { name: kernel.event_subscriber }
-        arguments: ['@twig']
+        arguments: ['@twig', "@session" ]
 
     admin.subscriber.categorie.form:
         class: adminBundle\Subscriber\CategorieFormSubscriber
@@ -36,6 +36,10 @@ services:
 
     admin.service.utils.string:
         class: adminBundle\Service\Utils\StringService
+
+    admin.service.cart:
+        class: adminBundle\Service\CartService
+        arguments: [ '@session' , '@doctrine' , '@request_stack' ]
 
     admin.service.upload:
         class: adminBundle\Service\UploadService

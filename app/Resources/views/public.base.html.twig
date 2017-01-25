@@ -41,18 +41,19 @@
         btnCookie.on('click', onClickBtnCookie);
         function onClickBtnCookie(e)
         {
-            divCookie.fadeOut('slow');
+
             $.ajax({
                 method: 'POST',
                 url: 'http://localhost/symfony/web/app_dev.php/fr/app/disclaimer-cookies',
                 data: 'disclaimer=1',
+                dataType: 'json',
                 success: onSuccess
             });
         }
 
         function onSuccess(data)
         {
-            console.log(data);
+            divCookie.fadeOut('slow');
         }
     </script>
 {% endblock %}

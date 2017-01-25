@@ -1,0 +1,13 @@
+{% extends "public.layout.html.twig" %}
+
+{% block content %}
+
+    {% for product in products %}
+
+        <ul>
+            <li><em>{{ product.titleFR }}</em> : {{ product.descriptionFR }} <span>{{ product.price }} €</span></li>
+        </ul>
+
+        {% endfor %}
+
+{% endblock %}

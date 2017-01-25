@@ -154,5 +154,19 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $results;
     }
+
+    public function searchProduct($saisie)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+        ->select('prod')
+        ->from('adminBundle:Product' , 'prod')
+        ->where('prod.titleFR LIKE :saisie')
+        ->setParameter('saisie', '%'.$saisie.'%')
+        ->getQuery();
+
+        return $query->getResult();
+        //die(dump($query->getResult()));
+
+    }
 }
 

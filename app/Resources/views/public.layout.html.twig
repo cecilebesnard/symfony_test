@@ -2,6 +2,7 @@
 
 {% block body %}
 
+    {{ dump(app.session.get('order')) }}
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -19,7 +20,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="{{ url('homepage') }}">Homepage</a>
                     </li>
                     <li>
                         <a href="#">Services</a>
@@ -28,12 +29,18 @@
                         <a href="#">Contact</a>
                     </li>
 
+                    <li>
+                        <a href="{{ url('showCart') }}"><img style="width: 30px" src="{{ asset("upload/panier.png") }}" alt="panier"></a>
+                    </li>
+
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ url('admin') }}">Accès à l'administration</a></li>
                     {% endif %}
                     {% if is_granted('ROLE_USER') %}
                         <li><a href="{{ url('profil.accesclient') }}">Profil Utilisateur</a></li>
                     {% endif %}
+
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -42,6 +49,17 @@
     </nav>
 
 
+<form action ="{{ url('search') }}">
+    <div class="col-md-3">
+        <div class="input-group input-group-sm icon-addon addon-sm">
+            <input placeholder="Texte" name="search" id="schbox" class="form-control input-sm" type="text">
+            <i class="icon icon-search"></i>
+            <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-inverse">Rechercher</button>
+                                        </span>
+        </div></div>
+    </form>
+    <div id="results"></div>
 
     <section class="content">
         <!-- Page Content -->
@@ -76,11 +94,45 @@
 
 
 
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script>
 
 
+        $(document).ready( function()
+        {
+            // détection de la saisie dans le champ de recherche
+            $('#schbox').keyup(function()
+            {
 
+                $('#results').html(''); // on vide les resultats
 
+                console.log('test');
+                // on commence à traiter à partir du 2ème caractère saisie
+                if ($('#schbox').val().length > 1)
+                {
 
+                    // on envoie la valeur recherché en GET au fichier de traitement
+                    $.ajax(
+                            {
+                                type: 'GET', // envoi des données en GET ou POST
+                                url: 'http://localhost/symfony/web/app_dev.php/fr/app/search', // url du fichier de traitement
+                                data: 'search=' + $('#schbox').val(), // données à envoyer en  GET ou POST
+
+                                success: function (data)
+                                { // traitements JS à faire APRES le retour d'ajax-search.php
+
+                                    $('#results').html(data); // affichage des résultats dans le bloc
+                                }
+                            });
+                }
+            })
+        })
+
+    </script>
 
 
 

@@ -55,8 +55,43 @@ class MainController extends Controller
         $session->set('disclaimer' , $disclaimer);
 
         //dump visible dans onglet reseau\selectionner la requete\aperçu
-        die(dump($session->get('disclaimer')));
+        //die(dump($session->get('disclaimer')));
+
+        return new JsonResponse
+        ([
+            'success' => 'ok'
+        ]);
     }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function searchAction(Request $request)
+    {
+        $saisie = $request->get('search');
+        //die(dump($saisie));
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('adminBundle:Product')->searchProduct($saisie);
+
+        return $this->render('Public/Main/search.html.twig' , [ 'products' => $products]);
+    }
+
+    /**
+     * @Route("/autocomplete", name="autocomplete")
+     */
+    public function autocompleteAction(Request $request)
+    {
+        $saisie = $request->get('search');
+        //die(dump($saisie));
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('adminBundle:Product')->searchProduct($saisie);
+
+        return new JsonResponse
+        ([
+            'products' => $products
+        ]);
+    }
+
 
 
 
