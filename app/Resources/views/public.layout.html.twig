@@ -119,8 +119,8 @@
                     $.ajax(
                             {
                                 type: 'GET', // envoi des données en GET ou POST
-                                url: 'http://localhost/symfony/web/app_dev.php/fr/app/search', // url du fichier de traitement
-                                data: 'search=' + $('#schbox').val(), // données à envoyer en  GET ou POST
+                                url: 'http://localhost/symfony/web/app_dev.php/fr/app/autocomplete', // url du fichier de traitement
+                                data: $('#schbox').val(), // données à envoyer en  GET ou POST
 
                                 success: function (data)
                                 { // traitements JS à faire APRES le retour d'ajax-search.php

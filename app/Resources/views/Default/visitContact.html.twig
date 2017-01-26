@@ -1,0 +1,22 @@
+{%  extends "layout.html.twig" %}
+
+
+{% block content %}
+
+    <table class="table table-striped">
+        <tr>
+            <th>IP</th>
+            <th>Date</th>
+        </tr>
+
+        {% for line in file %}
+            {% set data = line | split(';') %}
+            <tr>
+                <td>{{ data[0] }}</td>
+                <td>{{ data[1] }}</td>
+            </tr>
+            {% endfor %}
+    </table>
+
+
+{% endblock %}

@@ -2,6 +2,8 @@
 
 namespace adminBundle\Controller;
 
+use AppBundle\Event\VisitContactEvent;
+use AppBundle\Event\VisitEvents;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,11 +31,28 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/visitContact" ,name="VisitContact")
+     */
+    public function visitContactAction()
+    {
+        $fileCSV = file('../var/logs/contactFormLogs.csv');
+
+        return $this->render('Default/visitContact.html.twig', ['file' => $fileCSV]);
+    }
+
+    /**
      * @Route("/contact" ,name="contact")
      */
     public function contactAction(Request $request)
     {
 
+        //EVENT PERSONNALISE
+        $eventDispatcher = $this->get('event_dispatcher');
+        $event = new VisitContactEvent();
+        $event->setIp($request->getClientIp());
+        $eventDispatcher->dispatch(VisitEvents::CONTACT, $event);
+
+        $fileCSV = file('../var/logs/contactFormLogs.csv');
 
         $formContact = $this->createFormBuilder()
             ->add('firstname', TextType::class,[

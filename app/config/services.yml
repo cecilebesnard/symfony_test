@@ -19,6 +19,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    app.subscriber.visit.events:
+        class: AppBundle\Subscriber\VisitEventsSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
