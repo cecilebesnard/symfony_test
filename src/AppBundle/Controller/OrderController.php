@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Orders;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,5 +167,50 @@ class OrderController extends Controller
         $this->get('admin.service.cart')-> removeProduct($id);
         return $this->redirectToRoute('showCart');
     }
+
+    /**
+     * @Route("/order/validate", name="order.validate" )
+     */
+    public function orderValidateAction(Request $request)
+    {
+        $showCart = $this->get('admin.service.cart')->showCart();
+
+        $id = [];
+        $qte = [];
+        $price = [];
+
+        foreach ($showCart['product'] as $product => $val)
+        {
+
+            $id[] = $val->getId();
+            $qte[] = $val->qte;
+            $price[] = $val->getPrice();
+
+        }
+
+        //dump($id , $qte, $price);
+        $cart = [
+            'id' => $id,
+            'qte' => $qte,
+            'price' => $price,
+            'total' => $showCart['total']
+
+        ];
+
+        //dump($cart);
+
+        $orders = new Orders();
+        $orders->setCart($cart);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($orders);
+        $em->flush();
+
+        return $this->render('Public/Main/cart.html.twig', [
+            'products' => $showCart['product'],
+            'total' => $showCart['total'],
+        ]);
+    }
+
 }
 

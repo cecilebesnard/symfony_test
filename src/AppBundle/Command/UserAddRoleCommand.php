@@ -42,6 +42,12 @@ class UserAddRoleCommand extends ContainerAwareCommand
         $doctrine = $container->get('doctrine');
         $em = $doctrine->getManager();
 
+
+        // Désactivation de l'écouteur de "preUpdate" pour pouvoir utiliser la commande si erreur : Error: Call to a member function guessExtension() on a non-object "
+        //$em->getClassMetaData('AppBundle:User')->entityListeners; // récupération des écouteurs (pour les visualiser grâce au dump)
+        //unset($em->getClassMetaData('AppBundle:User')->entityListeners['preUpdate']); // suppression de l'écouteur qui pose pb
+        //dump($em->getClassMetaData('AppBundle:User')->entityListeners); exit;
+
         //accés aux entites via doctrine
         $rcUser = $doctrine->getRepository('AppBundle:User')->findOneBy([
             'username' => $username
